@@ -1,0 +1,7 @@
+# ignore obj, symbols, debuggewr memdumps (txt), dependency files
+*.dSYM
+doc
+.cache
+build
+Testing
+compile_commands.json
