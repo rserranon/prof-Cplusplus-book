@@ -41,6 +41,23 @@ BOOST_AUTO_TEST_CASE(set_and_get_cells){
     BOOST_CHECK_LT((s_.GetCellAt(5,5).GetValue()-1), 0.000001);
 }
 
+BOOST_AUTO_TEST_CASE(copy_spreadsheet) {
+    BOOST_TEST_MESSAGE("copy_spreadsheet");
+    sc_.SetValue(1);
+    s_.SetCellAt(5, 5, sc_ );
+    SpreadSheet s2 = s_; // Construct and copy the object, the copy constructor gets called 
+    BOOST_CHECK_LT((s2.GetCellAt(5,5).GetValue()-1), 0.000001);
+}
+
+BOOST_AUTO_TEST_CASE(copy_assignment_spreadsheet) {
+    BOOST_TEST_MESSAGE("copy_assignment_spreadsheet");
+    sc_.SetValue(1);
+    s_.SetCellAt(5, 5, sc_ );
+    SpreadSheet s2 {100,100};
+    s2 = s_; // Construct and copy the object, the copy constructor gets called 
+    BOOST_CHECK_LT((s2.GetCellAt(5,5).GetValue()-1), 0.000001);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 

@@ -6,7 +6,11 @@
 class SpreadSheet {
     public:
         SpreadSheet (size_t width, size_t height);
+        SpreadSheet(const SpreadSheet& src);        //  Copy constructor
         ~SpreadSheet();
+        SpreadSheet& operator = (const SpreadSheet& rhs); // Copy assignment operator
+        void Swap(SpreadSheet& other) noexcept;
+
         void SetCellAt (size_t x, size_t y, SpreadSheeetCell& cell);
         SpreadSheeetCell& GetCellAt(size_t x, size_t y);
         void VerifyCoordinate(size_t x, size_t y) const;
