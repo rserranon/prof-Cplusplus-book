@@ -11,6 +11,13 @@ SpreadSheet::SpreadSheet(size_t width, size_t height) : m_width(width), m_height
     }
 }
 
+SpreadSheet::~SpreadSheet() {
+    for (size_t x = 0; x < m_width; x++) {
+        delete [] m_cells[x];
+    }
+    delete [] m_cells;
+    m_cells = nullptr;
+}
 
 void SpreadSheet::SetCellAt (size_t x, size_t y, SpreadSheeetCell& cell) {
     VerifyCoordinate(x, y);

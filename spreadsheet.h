@@ -6,6 +6,7 @@
 class SpreadSheet {
     public:
         SpreadSheet (size_t width, size_t height);
+        ~SpreadSheet();
         void SetCellAt (size_t x, size_t y, SpreadSheeetCell& cell);
         SpreadSheeetCell& GetCellAt(size_t x, size_t y);
         void VerifyCoordinate(size_t x, size_t y) const;
