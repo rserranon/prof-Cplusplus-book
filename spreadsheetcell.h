@@ -1,3 +1,4 @@
+#pragma once
 class SpreadSheeetCell {
     public:
         void SetValue(double value);
