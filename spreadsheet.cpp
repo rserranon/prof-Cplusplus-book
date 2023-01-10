@@ -6,16 +6,16 @@
 #include <sys/_types/_size_t.h>
 #include <type_traits>
 
-int counter = 0;
+int SpreadSheet::s_count = 0;
 
 void Swap(SpreadSheet& first, SpreadSheet& second) noexcept {
     first.Swap(second);
 }
 
 SpreadSheet::SpreadSheet(size_t width, size_t height) : m_width(width), m_height(height) {
-    std::cout << "Allocation constructor" << std::endl;
-    counter++;
-    std::cout << counter << std::endl;
+    std::cout << "Constructor" << std::endl;
+    s_count++;
+    std::cout << s_count << std::endl;
     m_cells = new SpreadSheeetCell* [m_width];
     for (size_t i = 0; i < m_width; i++) {
         m_cells[i] = new SpreadSheeetCell[m_height];
@@ -31,10 +31,17 @@ SpreadSheet::SpreadSheet(const SpreadSheet& src) : SpreadSheet {src.m_width, src
     }
 }
 
+SpreadSheet::SpreadSheet(SpreadSheet&& src) noexcept {
+    std::cout << "Move constructor" << std::endl;
+    s_count++;
+    std::cout << s_count << std::endl;
+    Swap(src);
+}
+
 SpreadSheet::~SpreadSheet() {
     std::cout << "Destructor" << std::endl;
-    counter--;
-    std::cout << counter << std::endl;
+    s_count--;
+    std::cout << s_count << std::endl;
     for (size_t x = 0; x < m_width; x++) {
         delete [] m_cells[x];
     }
@@ -46,6 +53,12 @@ SpreadSheet& SpreadSheet::operator = (const SpreadSheet &rhs) {
     std::cout << "Copy assignment operator" << std::endl;
     SpreadSheet temp { rhs };
     Swap(temp);
+    return *this;
+}
+
+SpreadSheet& SpreadSheet::operator = (SpreadSheet&& rhs) noexcept {
+    std::cout << "Move assignment operator" << std::endl;
+    Swap(rhs);
     return *this;
 }
 
